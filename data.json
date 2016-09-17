@@ -4,14 +4,14 @@
     "antecedent_name": "Onset rainfall",
     "attribute_weight": "1",
     "ref_val": [
-      "30",
+      "50",
       "40",
-      "50"
+      "30"
     ],
     "ref_title": [
-      "Low",
+      "High",
       "Medium",
-      "High"
+      "Low"
     ],
     "consequent_values": [
       "[]"
@@ -25,14 +25,14 @@
     "antecedent_name": "Prolonged rainfall",
     "attribute_weight": "1",
     "ref_val": [
-      "3",
+      "7",
       "5",
-      "7"
+      "3"
     ],
     "ref_title": [
-      "Low",
+      "High",
       "Medium",
-      "High"
+      "Low"
     ],
     "consequent_values": [
       "[]"
