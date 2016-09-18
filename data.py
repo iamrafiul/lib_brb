@@ -14,3 +14,4 @@ class Data(object):
         self.crisp_val = crisp_val
         self.parent = parent
         self.input_val = input_val
+        self.transformed_val = ref_val

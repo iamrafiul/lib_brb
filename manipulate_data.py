@@ -80,7 +80,31 @@ class RuleBase(object):
         return rule_row_list
 
     def input_transformation(self):
-        pass
+        for each in obj_list:
+            print "Before input transformation: {}".format(each.transformed_val)
+            user_input = float(each.input_val)
+
+            if user_input > float(each.ref_val[0]):
+                user_input = float(each.ref_val[0])
+            elif user_input < float(each.ref_val[len(each.ref_val) - 1]):
+                user_input = float(each.ref_val[len(each.ref_val) - 1])
+            flag = False
+            for i in range(len(each.ref_val)):
+                if user_input == float(each.ref_val[i]):
+                    each.transformed_val[i] = 1
+                    flag = True
+                    break
+            if not flag:
+                for j in range(len(each.ref_val) - 1):
+                    if (float(each.ref_val[j]) > user_input) and (user_input > float(each.ref_val[j+1])):
+                        val_1 = (
+                            (float(each.ref_val[j]) - user_input) / (float(each.ref_val[j]) - float(each.ref_val[j+1]))
+                        )
+                        each.transformed_val[j + 1] = str(val_1)
+                        val_2 = 1 - val_1
+                        each.transformed_val[j] = str(val_2)
+            print "After input transformation: {}".format(each.transformed_val)
+
 
 obj_list = list()
 
@@ -91,6 +115,9 @@ for each in data:
 
 rule_base = RuleBase(obj_list)
 ref_val_list = rule_base.create_rule_base()
+
+
+rule_base.input_transformation()
 
 for each in ref_val_list:
     print "{} {} {} {} {}".format(each.antecedent_1, each.antecedent_1_ref_title, each.antecedent_2, each.antecedent_2_ref_title, each.consequence_val)

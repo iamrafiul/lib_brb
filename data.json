@@ -18,7 +18,7 @@
     ],
     "crisp_val": "",
     "parent": "x8",
-    "input_val": ""
+    "input_val": "28"
   },
   "x23": {
     "antecedent_id": "x23",
@@ -39,7 +39,7 @@
     ],
     "crisp_val": "",
     "parent": "x8",
-    "input_val": ""
+    "input_val": "6.5"
   },
   "x8": {
     "antecedent_id": "x23",
@@ -60,6 +60,6 @@
     ],
     "crisp_val": "",
     "parent": "x8",
-    "input_val": ""
+    "input_val": "0"
   }
 }
