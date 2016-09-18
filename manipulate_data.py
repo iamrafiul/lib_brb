@@ -82,8 +82,6 @@ class RuleBase(object):
     def input_transformation(self):
         pass
 
-
-
 obj_list = list()
 
 for each in data:
