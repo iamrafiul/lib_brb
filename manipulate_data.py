@@ -1,40 +1,12 @@
 import json
+from rules import Rules
+from data import Data
 
 with open('data.json') as file_data:
     data = json.load(file_data)
 
 
-class Data(object):
-
-    def __init__(self, antecedent_id, antecedent_name,
-                 attribute_weight, ref_val, ref_title,
-                 consequent_values, crisp_val, parent,
-                 input_val):
-        self.name = ""
-        self.antecedent_id = antecedent_id
-        self.antecedent_name = antecedent_name
-        self.attribute_weight = attribute_weight
-        self.ref_title = ref_title
-        self.ref_val = ref_val
-        self.consequent_values = consequent_values
-        self.crisp_val = crisp_val
-        self.parent = parent
-        self.input_val = input_val
-
-
 class RuleBase(object):
-
-    class Rule(object):
-        def __init__(self):
-            self.rule_weight = 1
-            self.antecedent_1 = ""
-            self.antecedent_1_ref_title = ""
-            self.antecedent_2 = ""
-            self.antecedent_2_ref_title = ""
-            self.parent = ""
-            self.consequence_val = list()
-            self.matching_degree = None
-            self.activation_weight = None
 
     def __init__(self, object_list):
         self.obj_list = object_list
@@ -66,7 +38,7 @@ class RuleBase(object):
 
         for i in range(len(obj_list[2].ref_val)):
             for j in range(len(obj_list[1].ref_val)):
-                rules = self.Rule()
+                rules = Rules()
                 rules.antecedent_1 = obj_list[2].antecedent_id
                 rules.antecedent_2 = obj_list[1].antecedent_id
                 rules.parent = obj_list[2].parent
@@ -106,6 +78,11 @@ class RuleBase(object):
                             count += 1
                 rule_row_list.append(rules)
         return rule_row_list
+
+    def input_transformation(self):
+        pass
+
+
 
 obj_list = list()
 
