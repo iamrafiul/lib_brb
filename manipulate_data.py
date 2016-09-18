@@ -105,7 +105,6 @@ class RuleBase(object):
                         each.transformed_val[j] = str(val_2)
             print "After input transformation: {}".format(each.transformed_val)
 
-
 obj_list = list()
 
 for each in data:
@@ -115,7 +114,6 @@ for each in data:
 
 rule_base = RuleBase(obj_list)
 ref_val_list = rule_base.create_rule_base()
-
 
 rule_base.input_transformation()
 
