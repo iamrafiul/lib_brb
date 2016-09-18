@@ -1,3 +1,4 @@
+#adding ignore project files
 import json
 from rules import Rules
 from data import Data
