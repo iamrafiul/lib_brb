@@ -88,5 +88,11 @@ ENV/
 # Rope project settings
 .ropeproject
 
+<<<<<<< HEAD
 # IDE settings
 .idea
+=======
+# project Settings
+.project
+.pydevproject
+>>>>>>> 5daf99c490efc8e1f6e561fb8effeb3917c239cb
