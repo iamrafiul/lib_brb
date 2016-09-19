@@ -6,7 +6,10 @@ class Rules(object):
         self.antecedent_2 = ""
         self.antecedent_2_ref_title = ""
         self.parent = ""
-        self.consequence_val = list()
+        self.consequence_val = []
         self.matching_degree = None
         self.activation_weight = None
+
+    # def sum_of_activation_weight(self):
+    #     return sum(self.rule_weight * self.matching_degree)
 
