@@ -1,4 +1,4 @@
-#adding ignore project files
+
 import json
 import math
 from rules import Rules
