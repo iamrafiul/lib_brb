@@ -2,6 +2,7 @@
 import json
 from data import Data
 
+# with open('test_tree_traversal.json') as file_data:
 with open('temp_data.json') as file_data:
     data = json.load(file_data)
 
@@ -13,6 +14,10 @@ for each in data:
     obj_list.append(obj)
 
 print "Initial nodes: {}".format([each.antecedent_id for each in obj_list])
+obj_list.sort(key=lambda x: x.is_input == "true", reverse=True)
+print "After sorting: {}".format([each.antecedent_id for each in obj_list])
+
+
 
 visited = list()
 
@@ -31,6 +36,9 @@ while(len(obj_list) > 0):
     for j in range(i + 1, len(obj_list)):
         if obj_list[i].parent == obj_list[j].parent:
             visiting.append(obj_list[j])
+    # for k in range(0, i):
+    #     if obj_list[i].parent == obj_list[k].parent:
+    #         visiting.append(obj_list[j])
     visiting.append(obj_list[i])
 
     if len(visiting) == len(obj_list):
@@ -46,7 +54,9 @@ while(len(obj_list) > 0):
 
     if not isAllInput:
         i += 1
+        print "Current Nodes: {}".format([each.antecedent_id for each in visiting])
         print "All the children for parent {} is not calculated yet".format(parent)
+        obj_list.sort(key=lambda x: x.is_input == "true", reverse=True)
         continue
     else:
         print "{} children found for parent {}. They are: {}".format(len(visiting), parent, [each.antecedent_id for each in visiting])
@@ -60,11 +70,15 @@ while(len(obj_list) > 0):
         for each in obj_list:
             if each.antecedent_id == parent:
                 current = each
-                obj_list.remove(current)
-                current.is_input = 'true'
-                obj_list.insert(0, current)
+                each.is_input = 'true'
+                # current = each
+                # obj_list.remove(current)
+                # current.is_input = 'true'
+                # obj_list.insert(0, current)
                 i = 0
         print "Remaining nodes for traversal: {}".format([each.antecedent_id for each in obj_list])
 
         print "\nIn iteration {}, {} is calculated and now it's an input node. We've calculated {} subtrees so far.".format(count-1, current.antecedent_id, subtree)
         subtree += 1
+        obj_list.sort(key=lambda x: x.is_input == "true", reverse=True)
+
