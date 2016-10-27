@@ -6,7 +6,7 @@ class Data(object):
     def __init__(self, antecedent_id, antecedent_name,
                  attribute_weight, ref_val, ref_title,
                  consequent_values, crisp_val, parent,
-                 input_val="0"):
+                 is_input, input_val="0"):
         self.name = ""
         self.antecedent_id = antecedent_id
         self.antecedent_name = antecedent_name
@@ -18,3 +18,4 @@ class Data(object):
         self.parent = parent
         self.input_val = input_val
         self.transformed_val = [0 for _ in range(3)]
+        self.is_input = is_input
