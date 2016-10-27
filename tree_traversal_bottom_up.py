@@ -35,9 +35,6 @@ while(len(obj_list) > 0):
     for j in range(i + 1, len(obj_list)):
         if obj_list[i].parent == obj_list[j].parent:
             visiting.append(obj_list[j])
-    # for k in range(0, i):
-    #     if obj_list[i].parent == obj_list[k].parent:
-    #         visiting.append(obj_list[j])
     visiting.append(obj_list[i])
 
     if len(visiting) == len(obj_list):
@@ -59,7 +56,6 @@ while(len(obj_list) > 0):
         continue
     else:
         print "{} children found for parent {}. They are: {}".format(len(visiting), parent, [str(each.antecedent_id) for each in visiting])
-        # print "They are: {}".format()
 
         for each in visiting:
             visited.append(each)
@@ -70,10 +66,6 @@ while(len(obj_list) > 0):
             if each.antecedent_id == parent:
                 current = each
                 each.is_input = 'true'
-                # current = each
-                # obj_list.remove(current)
-                # current.is_input = 'true'
-                # obj_list.insert(0, current)
                 i = 0
         print "Remaining nodes for traversal: {}".format([str(each.antecedent_id) for each in obj_list])
 
