@@ -42,12 +42,6 @@ class RuleBase(object):
             self.con_ref_values.append(current_val)
             logging.warning(current_val)
 
-
-        # cons_ref_val_2 += (cons_ref_val_1 + cons_ref_val_3) / 2
-
-
-        # self.con_ref_values.append(cons_ref_val_3)
-
         a = 0
         count = 0
 
