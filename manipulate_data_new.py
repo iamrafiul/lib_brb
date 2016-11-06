@@ -31,16 +31,17 @@ class RuleBase(object):
                 float(each.attribute_weight) * float(each.ref_val[len(each.ref_val) - 1])
             )
 
-        logging.warning(cons_ref_val_1, cons_ref_val_n)
+        logging.warning("Logged values {}, {}".format(cons_ref_val_1, cons_ref_val_n))
 
         self.con_ref_values.append(cons_ref_val_1)
         self.con_ref_values.append(cons_ref_val_n)
 
-        intermediate_cons_ref_val_num = len(self.parent.ref_val) - 2
-        for i in range(0, intermediate_cons_ref_val_num):
+        intermediate_cons_ref_val_num = len(self.parent.ref_val) - 1
+        for i in range(1, intermediate_cons_ref_val_num):
             current_val = float(cons_ref_val_1 * i * 1.0) + float(cons_ref_val_n * (intermediate_cons_ref_val_num - i))
+            current_val = current_val /(i+(intermediate_cons_ref_val_num - i))
             self.con_ref_values.append(current_val)
-            logging.warning(current_val)
+            logging.warning("New value: {}".format(current_val))
 
         a = 0
         count = 0
@@ -276,8 +277,8 @@ print "Initial Data:"
 print "Antecedent ID    Name     Attribute Weight    Reference Titles    Reference Values"
 for row in obj_list:
     print "{}   {}  {}  {}  {}".format(row.antecedent_id, row.antecedent_name, row.attribute_weight, row.ref_val, row.ref_title)
-
-rule_base = RuleBase(obj_list)
+    
+rule_base = RuleBase(obj_list,obj_list[5])
 ref_val_list = rule_base.create_rule_base()
 
 print "\n\n"

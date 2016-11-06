@@ -1,7 +1,7 @@
 {
-  "x22": {
-    "antecedent_id": "x22",
-    "antecedent_name": "Onset rainfall",
+ "x27": {
+    "antecedent_id": "x27",
+    "antecedent_name": "Unplanned infrastructure",
     "attribute_weight": "1",
     "ref_val": [
       "50",
@@ -17,17 +17,18 @@
       "[]"
     ],
     "crisp_val": "",
-    "parent": "x8",
-    "input_val": "31"
+    "parent": "x12",
+    "input_val": "31",
+    "is_input": "true"
   },
-  "x23": {
-    "antecedent_id": "x23",
-    "antecedent_name": "Prolonged rainfall",
+  "x28": {
+    "antecedent_id": "x28",
+    "antecedent_name": "Embankment failure",
     "attribute_weight": "1",
     "ref_val": [
-      "7",
-      "5",
-      "3"
+      "50",
+      "40",
+      "30"
     ],
     "ref_title": [
       "High",
@@ -38,12 +39,79 @@
       "[]"
     ],
     "crisp_val": "",
-    "parent": "x8",
-    "input_val": "6.5"
+    "parent": "x12",
+    "input_val": "31",
+    "is_input": "true"
   },
-  "x8": {
-    "antecedent_id": "x23",
-    "antecedent_name": "Meteorological Factors",
+  "x29": {
+    "antecedent_id": "x29",
+    "antecedent_name": "Deforestation",
+    "attribute_weight": "1",
+    "ref_val": [
+      "50",
+      "40",
+      "30"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x12",
+    "input_val": "31",
+    "is_input": "true"
+  },
+  "x30": {
+    "antecedent_id": "x30",
+    "antecedent_name": "Settlement on the flood prone areas",
+    "attribute_weight": "1",
+    "ref_val": [
+      "50",
+      "40",
+      "30"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x12",
+    "input_val": "31",
+    "is_input": "true"
+  },
+  "x31": {
+    "antecedent_id": "x31",
+    "antecedent_name": "Decrease watershed areas",
+    "attribute_weight": "1",
+    "ref_val": [
+      "50",
+      "40",
+      "30"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x12",
+    "input_val": "31",
+    "is_input": "true"
+  },
+ "x12": {
+    "antecedent_id": "x12",
+    "antecedent_name": "Human activities",
     "attribute_weight": "1",
     "ref_val": [
       "1",
@@ -59,7 +127,8 @@
       "[]"
     ],
     "crisp_val": "",
-    "parent": "x8",
-    "input_val": "0"
+    "parent": "x7",
+    "input_val": "0",
+    "is_input": "false"
   }
 }
