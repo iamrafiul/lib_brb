@@ -17,5 +17,5 @@ class Data(object):
         self.crisp_val = crisp_val
         self.parent = parent
         self.input_val = input_val
-        self.transformed_val = [0 for _ in range(3)]
+        self.transformed_val = [0 for _ in range(len(self.ref_val))]
         self.is_input = is_input

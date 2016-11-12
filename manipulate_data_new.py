@@ -1,29 +1,34 @@
-
 import json
+from collections import OrderedDict
 import logging
 from rules import Rules
 from data import Data
 
 with open('data.json') as file_data:
-    data = json.load(file_data)
+# with open('single_tree.json') as file_data:
+    data = json.load(file_data, object_pairs_hook=OrderedDict)
 
 
 class RuleBase(object):
 
     def __init__(self, object_list, parent):
         self.obj_list = object_list
-        self.con_ref_values = list()
         self.intermediate_ref_val = 0
         self.rule_row_list = list()
         self.parent = parent
+        self.con_ref_values = [0 for _ in range(len(self.parent.ref_val))]
+        self.combinations = [[]]
+
+    '''
+    Create initial rule base
+    '''
 
     def create_rule_base(self):
-        # parent = obj_list[0].parent
         cons_ref_val_1 = 0
         cons_ref_val_n = 0
 
-        for each in obj_list:
-            # if each.name != parent:
+        for each in self.obj_list:
+            # calculate the range of consequence values(First and last)
             cons_ref_val_1 += float(
                 float(each.attribute_weight) * float(each.ref_val[0])
             )
@@ -31,102 +36,131 @@ class RuleBase(object):
                 float(each.attribute_weight) * float(each.ref_val[len(each.ref_val) - 1])
             )
 
-        logging.warning("Logged values {}, {}".format(cons_ref_val_1, cons_ref_val_n))
+        # logging.warning("Logged values {}, {}".format(cons_ref_val_1, cons_ref_val_n))
 
-        self.con_ref_values.append(cons_ref_val_1)
-        self.con_ref_values.append(cons_ref_val_n)
+        self.con_ref_values[0] = cons_ref_val_1
+        self.con_ref_values[len(self.con_ref_values) - 1] = cons_ref_val_n
 
+        # calculate intermediate values within the range.
         intermediate_cons_ref_val_num = len(self.parent.ref_val) - 1
         for i in range(1, intermediate_cons_ref_val_num):
             current_val = float(cons_ref_val_1 * i * 1.0) + float(cons_ref_val_n * (intermediate_cons_ref_val_num - i))
-            current_val = current_val /(i+(intermediate_cons_ref_val_num - i))
-            self.con_ref_values.append(current_val)
-            logging.warning("New value: {}".format(current_val))
+            current_val /= (i + (intermediate_cons_ref_val_num - i))
+            self.con_ref_values[i] = current_val
+            # logging.warning("New value: {}".format(current_val))
 
-        a = 0
-        count = 0
 
-        for i in range(len(obj_list[2].ref_val)):
-            for j in range(len(obj_list[1].ref_val)):
-                rules = Rules()
-                rules.antecedent_1 = obj_list[2].antecedent_id
-                rules.antecedent_2 = obj_list[1].antecedent_id
-                rules.parent = obj_list[2].parent
+        # Calculate the number of possible combinations of reference values.
+        array_for_ref_count = [[]]
 
-                self.intermediate_ref_val = a + float(
-                        (float(obj_list[2].attribute_weight) * float(obj_list[2].ref_val[i])) +
-                        (float(obj_list[1].attribute_weight) * float(obj_list[1].ref_val[j]))
-                )
-                is_continue = False
-                for q in range(len(self.con_ref_values)):
-                    if self.intermediate_ref_val == self.con_ref_values[q]:
-                        rules.antecedent_1_ref_title = obj_list[2].ref_title[i]
-                        rules.antecedent_2_ref_title = obj_list[1].ref_title[j]
-                        rules.consequence_val.append({obj_list[2].ref_title[q]: 1.0})
-                        self.rule_row_list.append(rules)
+        for each in self.obj_list:
+            length = len(each.ref_val)
+            temp = list()
+            for i in range(length):
+                temp.append(i)
+            array_for_ref_count.append(temp)
 
-                        count += 1
-                        is_continue = True
+        array = array_for_ref_count[1:]
+        pools = [tuple(pool) for pool in array] * 1
+        result = [[]]
+        for pool in pools:
+            result = [x+[y] for x in result for y in pool]
 
-                if is_continue:
-                    continue
-                else:
-                    for m in range(0, len(self.con_ref_values)-1):
-                        if (self.con_ref_values[m] > self.intermediate_ref_val) and \
-                                (self.intermediate_ref_val > self.con_ref_values[m+1]):
-                            val_1 = float(
-                                (self.con_ref_values[m] - self.intermediate_ref_val) /
-                                (self.con_ref_values[m] - self.con_ref_values[m+1])
+        for each in result:
+            self.combinations.append(each)
+
+        self.combinations = self.combinations[1:]
+
+        # print "Combinations are: {}".format(combinations)
+
+        print "Consequence values are: {}".format(self.con_ref_values)
+
+        # Calculate y for each combination and distribute consequence values in the range
+        for each in self.combinations:
+            rules = Rules()
+            row_val = [0 for _ in range(len(self.con_ref_values))]
+            y = 0.0
+            for i in range(len(self.obj_list)):
+                y += float(float(obj_list[i].ref_val[each[i]]) * float(obj_list[i].attribute_weight))
+            # print "Y value: {}".format(y)
+
+            is_continue = False
+            for idx, per in enumerate(self.con_ref_values):
+                if per == y:
+                    row_val[idx] = 1.0
+                    rules.consequence_val = row_val
+                    rules.combinations = each
+                    self.rule_row_list.append(rules)
+                    is_continue = True
+            if is_continue:
+                continue
+            else:
+                for idx in range(len(self.con_ref_values) - 1):
+                    if (self.con_ref_values[idx] > y) and (y > self.con_ref_values[idx + 1]):
+                        row_val[idx + 1]  = float(
+                                (self.con_ref_values[idx] - y) /
+                                (self.con_ref_values[idx] - self.con_ref_values[idx + 1])
                             )
-                            val_2 = float(1 - val_1)
+                        row_val[idx] = float(1 - row_val[idx + 1])
 
-                            rules.antecedent_1_ref_title = obj_list[2].ref_title[i]
-                            rules.antecedent_2_ref_title = obj_list[1].ref_title[j]
-                            rules.consequence_val.append({obj_list[2].ref_title[m+1]: val_1})
-                            rules.consequence_val.append({obj_list[2].ref_title[m]: val_2})
-                            count += 1
+                rules.consequence_val = row_val
+                rules.combinations = each
                 self.rule_row_list.append(rules)
+
+        print "Rule Base: "
+        for each in self.rule_row_list:
+            print each.__dict__
+
         return self.rule_row_list
+
+    '''
+    Transform input value in the range of consequent values
+    '''
 
     def input_transformation(self):
         for each in obj_list:
-            if each.name != 'x8':
-                print "Value before input transformation: {}".format(each.transformed_val)
-                try:
-                    user_input = float(each.input_val)
-                except:
-                    user_input = 0
+            print "Value before input transformation: {}".format(each.transformed_val)
+            try:
+                user_input = float(each.input_val)
+            except:
+                user_input = 0
 
-                if user_input > float(each.ref_val[0]):
-                    user_input = float(each.ref_val[0])
-                elif user_input < float(each.ref_val[len(each.ref_val) - 1]):
-                    user_input = float(each.ref_val[len(each.ref_val) - 1])
-                flag = False
-                for i in range(len(each.ref_val)):
-                    if user_input == float(each.ref_val[i]):
-                        each.transformed_val[i] = 1
-                        flag = True
-                        break
-                if not flag:
-                    for j in range(len(each.ref_val) - 1):
-                        if (float(each.ref_val[j]) > user_input) and (user_input > float(each.ref_val[j+1])):
-                            val_1 = (
-                                (float(each.ref_val[j]) - user_input) / (float(each.ref_val[j]) - float(each.ref_val[j+1]))
-                            )
-                            each.transformed_val[j + 1] = str(val_1)
-                            val_2 = 1 - val_1
-                            each.transformed_val[j] = str(val_2)
-                print "Value after input transformation: {}".format(each.transformed_val)
+            if user_input > float(each.ref_val[0]):
+                user_input = float(each.ref_val[0])
+            elif user_input < float(each.ref_val[len(each.ref_val) - 1]):
+                user_input = float(each.ref_val[len(each.ref_val) - 1])
+            flag = False
+            for i in range(len(each.ref_val)):
+                if user_input == float(each.ref_val[i]):
+                    each.transformed_val[i] = 1
+                    flag = True
+                    break
+            if not flag:
+                for j in range(len(each.ref_val) - 1):
+                    if (float(each.ref_val[j]) > user_input) and (user_input > float(each.ref_val[j+1])):
+                        val_1 = (
+                            (float(each.ref_val[j]) - user_input) / (float(each.ref_val[j]) - float(each.ref_val[j+1]))
+                        )
+                        each.transformed_val[j + 1] = str(val_1)
+                        val_2 = 1 - val_1
+                        each.transformed_val[j] = str(val_2)
+            print "Value after input transformation: {}".format(each.transformed_val)
+
+    '''
+    Calculate activation weight
+    '''
 
     def activation_weight(self):
         matching_degree = list()
-        for i in range(len(obj_list[2].ref_val)):
-            for j in range(len(obj_list[1].ref_val)):
-                degree = float(
-                    pow(float(obj_list[2].transformed_val[i]), float(obj_list[2].attribute_weight)) *
-                    pow(float(obj_list[1].transformed_val[j]), float(obj_list[1].attribute_weight))
+
+        for i, row in enumerate(self.combinations):
+            degree = 1.0
+            for idx, val in enumerate(row):
+                degree *= float(
+                    pow(float(self.obj_list[idx].transformed_val[val]), float(self.obj_list[idx].attribute_weight))
+
                 )
-                matching_degree.append(degree)
+            matching_degree.insert(i, degree)
 
         sum = 0.0
         for k in range(len(self.rule_row_list)):
@@ -143,83 +177,89 @@ class RuleBase(object):
             current_rule.activation_weight = activation_weight
 
         for each in ref_val_list:
-            print "{} {} {} {} {} {} {}".format(each.antecedent_1, each.antecedent_1_ref_title, each.antecedent_2,
-                                             each.antecedent_2_ref_title, each.rule_weight, each.consequence_val, each.activation_weight)
+            print "{} {}".format(each.consequence_val, each.activation_weight)
+            # print "{} {} {} {} {} {} {}".format(each.antecedent_1, each.antecedent_1_ref_title, each.antecedent_2,
+            #                                  each.antecedent_2_ref_title, each.rule_weight, each.consequence_val, each.activation_weight)
+
+    '''
+    Update rule base
+    '''
 
     def belief_update(self):
-        tao = [0 for _ in range(3)]
-
+        tao = [0 for _ in range(len(obj_list))]
         for i in range(len(obj_list)):
-            if obj_list[i].name != 'x8':
-                try:
-                    input_val = float(obj_list[i].input_val)
-                except:
-                    input_val = 0
-                if input_val != 0:
-                    tao[i] = 1
+            # if obj_list[i].name != 'x8':
+            try:
+                input_val = float(obj_list[i].input_val)
+            except:
+                input_val = 0
+            if input_val != 0:
+                tao[i] = 1
         total = 0
 
         for j in range(len(obj_list)):
-            if obj_list[j].name != 'x8':
-                summation = sum([float(each) for each in obj_list[j].transformed_val])
-                total += summation
+            summation = sum([float(each) for each in obj_list[j].transformed_val])
+            total += summation
 
-        update_value = total / 2
+
+        update_value = total / float(sum([each for each in tao]))
 
         for each in self.rule_row_list:
             new_val_list = []
-            for row in each.consequence_val:
-                # import pdb; pdb.set_trace()
-                for key, val in row.iteritems():
-                    # print "Before: {} {}".format(key, val)
-                    new_val = float(val) * update_value
-                    new_val_list.append({str(key): new_val})
-                    # print "After: {} {}".format(key, new_val)
+            for idx, row in enumerate(each.consequence_val):
+                # print "Before: {} {}".format(idx, row)
+                new_val = float(row) * update_value
+                new_val_list.insert(idx, new_val)
+                # print "After: {} {}".format(idx, new_val)
             each.consequence_val = new_val_list
 
         for each in self.rule_row_list:
-            print "{} {} {} {} {} {} {}".format(each.antecedent_1, each.antecedent_1_ref_title, each.antecedent_2,
-                                             each.antecedent_2_ref_title, each.rule_weight, each.consequence_val, each.activation_weight)
+            print "{}".format(each.consequence_val)
+            # print "{} {} {} {} {} {} {}".format(each.antecedent_1, each.antecedent_1_ref_title, each.antecedent_2,
+            #                                  each.antecedent_2_ref_title, each.rule_weight, each.consequence_val, each.activation_weight)
 
+    '''
+    Rule aggregation
+    '''
     def aggregate_rule(self):
+        # Get all the consequent value list from rule base
+        consequent_array = []
 
-        # Create 2D array for consequent values from rule base
-        consequent_array = [[0 for _ in range(3)] for _ in range(9)]
         for i in range(len(self.rule_row_list)):
             row = self.rule_row_list[i]
-            for j in range(len(row.consequence_val)):
-                values = row.consequence_val[j]
-                # import pdb; pdb.set_trace()
-                if values.has_key('High'):
-                    consequent_array[i][0] = float(values['High'])
-                if values.has_key('Medium'):
-                    consequent_array[i][1] = float(values['Medium'])
-                if values.has_key('Low'):
-                    consequent_array[i][2] = float(values['Low'])
+            consequent_array.insert(i, row.consequence_val)
 
         # Calculate mn from the consequent array and save in a 2D array(named mn here)
-        mn = [[0 for _ in range(9)] for _ in range(3)]
+        # mn = [[0 for _ in range(9)] for _ in range(3)]
+        # mn = [[0 for _ in range(9)] for _ in range(3)]
+
+        mn = [[0 for _ in range(len(self.combinations))] for _ in range(len(self.con_ref_values))]
 
         for i in range(len(self.rule_row_list)):
-            for each in self.rule_row_list[i].consequence_val:
+            for idx, each in enumerate(self.rule_row_list[i].consequence_val):
                 # import pdb;
                 # pdb.set_trace()
-                for key, val in each.iteritems():
-                    if key == 'High':
-                        mn[0][i] = float(
-                            float(self.rule_row_list[i].activation_weight) *
-                            float(val)
-                        )
-                    elif key == 'Medium':
-                        mn[1][i] = float(
-                            float(self.rule_row_list[i].activation_weight) *
-                            float(val)
-                        )
-                    elif key == 'Low':
-                        mn[2][i] = float(
-                            float(self.rule_row_list[i].activation_weight) *
-                            float(val)
-                        )
+                # for key, val in enumerate(each):
+                mn[idx][i] = float(
+                        float(self.rule_row_list[i].activation_weight) *
+                        float(each)
+                    )
+
+                    # if key == 'High':
+                    #     mn[0][i] = float(
+                    #         float(self.rule_row_list[i].activation_weight) *
+                    #         float(val)
+                    #     )
+                    # elif key == 'Medium':
+                    #     mn[1][i] = float(
+                    #         float(self.rule_row_list[i].activation_weight) *
+                    #         float(val)
+                    #     )
+                    # elif key == 'Low':
+                    #     mn[2][i] = float(
+                    #         float(self.rule_row_list[i].activation_weight) *
+                    #         float(val)
+                    #     )
 
         # Calculate md from the consequent array and save in a 1Ds array(named md here)
         md = [0 for _ in range(len(self.rule_row_list))]
@@ -263,28 +303,35 @@ class RuleBase(object):
         for k in range(len(rowsum)):
             aggregated_consequence_val[k] = m[k] / (1 - mhn)
 
-        print aggregated_consequence_val
+        print [round(each, 2) for each in aggregated_consequence_val]
 
 
 obj_list = list()
+parent = ""
 
 for each in data:
     obj = Data(**data[each])
     obj.name = str(each)
-    obj_list.append(obj)
+    # import pdb; pdb.set_trace()
+    if obj.parent != 'x12':
+    # if obj.parent != 'x8':
+        parent = obj
+    else:
+        obj_list.append(obj)
+
 
 print "Initial Data:"
 print "Antecedent ID    Name     Attribute Weight    Reference Titles    Reference Values"
 for row in obj_list:
-    print "{}   {}  {}  {}  {}".format(row.antecedent_id, row.antecedent_name, row.attribute_weight, row.ref_val, row.ref_title)
-    
-rule_base = RuleBase(obj_list,obj_list[5])
+    print "{}   {}  {}  {}  {}".format(row.antecedent_id, row.antecedent_name, row.attribute_weight, row.ref_title, row.ref_val)
+
+rule_base = RuleBase(obj_list, parent)
 ref_val_list = rule_base.create_rule_base()
 
-print "\n\n"
-print "Rule Base: "
-for each in ref_val_list:
-    print "{} {} {} {} {} {}".format(each.antecedent_1, each.antecedent_1_ref_title, each.antecedent_2, each.antecedent_2_ref_title, each.rule_weight, each.consequence_val)
+# print "\n\n"
+# print "Rule Base: "
+# for each in ref_val_list:
+#     print "{} {} {} {} {} {}".format(each.antecedent_1, each.antecedent_1_ref_title, each.antecedent_2, each.antecedent_2_ref_title, each.rule_weight, each.consequence_val)
 
 print "\n\n"
 print "Input Transformation: "
@@ -301,5 +348,5 @@ print "Belief Update"
 rule_base.belief_update()
 
 print "\n\n"
-print "Aggregated rule for X8:"
+print "Aggregated rule:"
 rule_base.aggregate_rule()

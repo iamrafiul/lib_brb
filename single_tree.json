@@ -1,0 +1,68 @@
+{
+  "x8": {
+    "antecedent_id": "x8",
+    "antecedent_name": "Meteorological Factors",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "Severe",
+      "Average",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x7",
+    "input_val": "0",
+    "is_input": "false"
+  },
+  "x22": {
+    "antecedent_id": "x22",
+    "antecedent_name": "Onset rainfall",
+    "attribute_weight": "1",
+    "ref_val": [
+      "50",
+      "40",
+      "30"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x8",
+    "input_val": "31",
+    "is_input": "true"
+  },
+  "x23": {
+    "antecedent_id": "x23",
+    "antecedent_name": "Prolonged rainfall",
+    "attribute_weight": "1",
+    "ref_val": [
+      "7",
+      "5",
+      "3"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x8",
+    "input_val": "6.5",
+    "is_input": "true"
+  }
+}

@@ -4,9 +4,9 @@
     "antecedent_name": "Unplanned infrastructure",
     "attribute_weight": "1",
     "ref_val": [
-      "50",
-      "40",
-      "30"
+      "1",
+      "0.5",
+      "0"
     ],
     "ref_title": [
       "High",
@@ -26,14 +26,12 @@
     "antecedent_name": "Embankment failure",
     "attribute_weight": "1",
     "ref_val": [
-      "50",
-      "40",
-      "30"
+      "1",
+      "0"
     ],
     "ref_title": [
-      "High",
-      "Medium",
-      "Low"
+      "Yes",
+      "No"
     ],
     "consequent_values": [
       "[]"
@@ -48,9 +46,9 @@
     "antecedent_name": "Deforestation",
     "attribute_weight": "1",
     "ref_val": [
-      "50",
-      "40",
-      "30"
+      "1",
+      "0.5",
+      "0"
     ],
     "ref_title": [
       "High",
@@ -70,9 +68,9 @@
     "antecedent_name": "Settlement on the flood prone areas",
     "attribute_weight": "1",
     "ref_val": [
-      "50",
-      "40",
-      "30"
+      "1",
+      "0.5",
+      "0"
     ],
     "ref_title": [
       "High",
@@ -92,9 +90,9 @@
     "antecedent_name": "Decrease watershed areas",
     "attribute_weight": "1",
     "ref_val": [
-      "50",
-      "40",
-      "30"
+      "1",
+      "0.5",
+      "0"
     ],
     "ref_title": [
       "High",

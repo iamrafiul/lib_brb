@@ -4,7 +4,7 @@ import math
 from rules import Rules
 from data import Data
 
-with open('data.json') as file_data:
+with open('single_tree.json') as file_data:
     data = json.load(file_data)
 
 
