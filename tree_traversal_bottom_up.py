@@ -1,6 +1,7 @@
 
 import json
 from data import Data
+from manipulate_data_new import RuleBase
 
 # Read data from file
 with open('temp_data.json') as file_data:
@@ -26,13 +27,23 @@ count = 1
 
 subtree = 1
 
+result = list()
+
 # While you have an object in obj_list
-while(len(obj_list) > 0):
+while len(obj_list):
     print "\n\nIteration: {}\n".format(count)
     count += 1
 
-    parent = obj_list[i].parent # Get parent of the current node.
+    # Get parent of the current node.
+    parent = None
+    # parent_id =
+    for each in obj_list:
+        if each.name == obj_list[i].parent:
+            parent = each
+            break
+
     visiting = list()
+
     # Find if there is any other node which has the same parent
     for j in range(i + 1, len(obj_list)):
         if obj_list[i].parent == obj_list[j].parent:
@@ -46,10 +57,27 @@ while(len(obj_list) > 0):
             isAllInput = False
 
     if len(visiting) == len(obj_list):
-        print "\nAll the current nodes have same parent \"{}\" so the tree traversal is done and the ultimate output is: {}".format(parent, parent)
+        # Compute the BRB sub-tree for the nodes in visiting.
+        print "Computing value of {} for {}".format(parent.antecedent_id,
+                                                    [str(each.antecedent_id) for each in visiting])
+        # import pdb; pdb.set_trace()
+        # brb_calculation = RuleBase()
+        rule_base = RuleBase(visiting, parent)
+        rule_base.create_rule_base()
+        rule_base.input_transformation()
+        rule_base.activation_weight()
+        rule_base.belief_update()
+        consequence_val = rule_base.aggregate_rule()
+        result.insert(count, consequence_val)
+        parent.consequence_val = consequence_val
+
+        print "Calculated consequence values for {} are: {}".format(parent.antecedent_id, consequence_val)
+
+
+        print "\nAll the current nodes have same parent \"{}\" so the tree traversal is done and the ultimate output is: {}".format(parent.antecedent_id, parent.antecedent_id)
         break
 
-    print "For {}, parent is: {}".format(str(obj_list[i].antecedent_id), parent)
+    print "For {}, parent is: {}".format(str(obj_list[i].antecedent_id), parent.antecedent_id)
 
     # if not all the siblings has same parent, continue to the next node of obj_list
     if not isAllInput:
@@ -60,7 +88,20 @@ while(len(obj_list) > 0):
         continue
     else:
         # Compute the BRB sub-tree for the nodes in visiting.
-        print "Computing value of {} for {}".format(parent, [str(each.antecedent_id) for each in visiting])
+        print "Computing value of {} for {}".format(parent.antecedent_id, [str(each.antecedent_id) for each in visiting])
+        # import pdb; pdb.set_trace()
+        # brb_calculation = RuleBase()
+        rule_base = RuleBase(visiting, parent)
+        rule_base.create_rule_base()
+        rule_base.input_transformation()
+        rule_base.activation_weight()
+        rule_base.belief_update()
+        consequence_val = rule_base.aggregate_rule()
+        parent.consequence_val = consequence_val
+        result.insert(count, consequence_val)
+
+        print "Calculated consequence values for {} are: {}".format(parent.antecedent_id, consequence_val)
+
 
         # Remove the visited nodes from obj_list
         for each in visiting:
@@ -70,7 +111,7 @@ while(len(obj_list) > 0):
         # Make the current nodes is_input true
         current = list()
         for each in obj_list:
-            if each.antecedent_id == parent:
+            if each == parent:
                 current = each
                 each.is_input = 'true'
                 i = 0
@@ -79,3 +120,7 @@ while(len(obj_list) > 0):
         print "\nIn iteration {}, {} is calculated and now it's an input node. We've calculated {} subtrees so far.".format(count-1, str(current.antecedent_id), subtree)
         subtree += 1
         obj_list.sort(key=lambda x: x.is_input == "true", reverse=True)
+
+
+for each in result:
+    print each
