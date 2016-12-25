@@ -1,0 +1,134 @@
+{
+  "x14": {
+    "antecedent_id": "x14",
+    "antecedent_name": "River depth",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1000",
+      "7500",
+      "500"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x10",
+    "input_val": "400",
+    "is_input": "true"
+  },
+  "x15": {
+    "antecedent_id": "x15",
+    "antecedent_name": "River width",
+    "attribute_weight": "1",
+    "ref_val": [
+      "30",
+      "22.5",
+      "15"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x10",
+    "input_val": "31",
+    "is_input": "true"
+  },
+  "x17": {
+    "antecedent_id": "x17",
+    "antecedent_name": "Slope",
+    "attribute_weight": "1",
+    "ref_val": [
+      "25",
+      "20",
+      "15"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x16",
+    "input_val": "17",
+    "is_input": "true"
+  },
+  "x18": {
+    "antecedent_id": "x18",
+    "antecedent_name": "Siltation",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x16",
+    "input_val": "0.65",
+    "is_input": "true"
+  },
+  "x16": {
+    "antecedent_id": "x16",
+    "antecedent_name": "Velocity",
+    "attribute_weight": "1",
+    "ref_val": [
+      "10",
+      "7.5",
+      "5"
+    ],
+    "ref_title": [
+      "Severe",
+      "Average",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x10",
+    "input_val": "0",
+    "is_input": "false"
+  },
+  "x10": {
+    "antecedent_id": "x10",
+    "antecedent_name": "River Discharge",
+    "attribute_weight": "1",
+    "ref_val": [
+      "100",
+      "75",
+      "50"
+    ],
+    "ref_title": [
+      "Severe",
+      "Average",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x10",
+    "input_val": "0",
+    "is_input": "false"
+  }
+}

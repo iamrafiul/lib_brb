@@ -1,10 +1,12 @@
-
 import json
-from data import Data
+
 from manipulate_data_new import RuleBase
+from data import Data
 
 # Read data from file
-with open('temp_data.json') as file_data:
+# with open('temp_data.json') as file_data:
+# with open('2nd_order_tree.json') as file_data:
+with open('api/single_tree.json') as file_data:
     data = json.load(file_data)
 
 obj_list = list()
@@ -59,11 +61,11 @@ while len(obj_list):
     if len(visiting) == len(obj_list):
         # Compute the BRB sub-tree for the nodes in visiting.
         print "Computing value of {} for {}".format(parent.antecedent_id,
-                                                    [str(each.antecedent_id) for each in visiting])
+                                                    [str(each.antecedent_id) for each in visiting if each.antecedent_id != parent.antecedent_id])
         # import pdb; pdb.set_trace()
         # brb_calculation = RuleBase()
         rule_base = RuleBase(visiting, parent)
-        rule_base.create_rule_base()
+        row_list = rule_base.create_rule_base()
         rule_base.input_transformation()
         rule_base.activation_weight()
         rule_base.belief_update()
@@ -71,7 +73,17 @@ while len(obj_list):
         result.insert(count, consequence_val)
         parent.consequence_val = consequence_val
 
+        crisp_val = 0.0
+        for i in range(len(parent.ref_val)):
+            crisp_val += float(parent.ref_val[i]) * float(consequence_val[i])
+
+        parent.input_val = str(crisp_val)
+
+        # import pdb; pdb.set_trace()
+
         print "Calculated consequence values for {} are: {}".format(parent.antecedent_id, consequence_val)
+
+        print "Rule Row List: {}".format([each.__dict__ for each in row_list])
 
 
         print "\nAll the current nodes have same parent \"{}\" so the tree traversal is done and the ultimate output is: {}".format(parent.antecedent_id, parent.antecedent_id)
@@ -92,7 +104,7 @@ while len(obj_list):
         # import pdb; pdb.set_trace()
         # brb_calculation = RuleBase()
         rule_base = RuleBase(visiting, parent)
-        rule_base.create_rule_base()
+        row_list_1 = rule_base.create_rule_base()
         rule_base.input_transformation()
         rule_base.activation_weight()
         rule_base.belief_update()
@@ -100,7 +112,17 @@ while len(obj_list):
         parent.consequence_val = consequence_val
         result.insert(count, consequence_val)
 
+        crisp_val = 0.0
+        for i in range(len(parent.ref_val)):
+            crisp_val += float(parent.ref_val[i]) * float(consequence_val[i])
+
+        parent.input_val = str(crisp_val)
+
+        # import pdb; pdb.set_trace()
+
         print "Calculated consequence values for {} are: {}".format(parent.antecedent_id, consequence_val)
+
+        print "Rule Row List: {}".format([each.__dict__ for each in row_list_1])
 
 
         # Remove the visited nodes from obj_list

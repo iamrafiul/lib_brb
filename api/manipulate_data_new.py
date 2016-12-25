@@ -106,16 +106,21 @@ class RuleBase(object):
                 rules.combinations = each
                 self.rule_row_list.append(rules)
 
-        print "Rule Base: "
-        for each in self.rule_row_list:
-            print each.__dict__
-        return self.rule_row_list
+        # print "Rule Base: "
+        # for each in self.rule_row_list:
+        #     print each.__dict__
+
+        data = self.rule_row_list
+        # import pdb; pdb.set_trace()
+        return data
+
 
     '''
     Transform input value in the range of consequent values
     '''
 
     def input_transformation(self):
+        transformed_input = list()
         for each in self.obj_list:
             print "Input value for {} is {}".format(each.name, each.input_val)
             # print "Value before input transformation: {}".format(each.transformed_val)
@@ -145,6 +150,8 @@ class RuleBase(object):
                         val_2 = 1 - val_1
                         each.transformed_val[j] = str(val_2)
             print "Value after input transformation: {}".format(each.transformed_val)
+            transformed_input.append(each.transformed_val)
+        return transformed_input
 
     '''
     Calculate activation weight

@@ -1,0 +1,509 @@
+{
+  "x22": {
+    "antecedent_id": "x22",
+    "antecedent_name": "Onset rainfall",
+    "attribute_weight": "1",
+    "ref_val": [
+      "50",
+      "40",
+      "30"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x8",
+    "input_val": "31",
+    "is_input": "true"
+  },
+  "x23": {
+    "antecedent_id": "x23",
+    "antecedent_name": "Prolonged rainfall",
+    "attribute_weight": "1",
+    "ref_val": [
+      "7",
+      "5",
+      "3"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x8",
+    "input_val": "6.5",
+    "is_input": "true"
+  },
+  "x19": {
+    "antecedent_id": "x19",
+    "antecedent_name": "Soil type",
+    "attribute_weight": "1",
+    "ref_val": [
+      "50",
+      "40",
+      "30"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x9",
+    "input_val": "31",
+    "is_input": "true"
+  },
+  "x20": {
+    "antecedent_id": "x20",
+    "antecedent_name": "Saturation limit of the soil type",
+    "attribute_weight": "1",
+    "ref_val": [
+      "50",
+      "40",
+      "30"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x9",
+    "input_val": "31",
+    "is_input": "true"
+  },
+  "x21": {
+    "antecedent_id": "x21",
+    "antecedent_name": "Soil infiltration rate",
+    "attribute_weight": "1",
+    "ref_val": [
+      "50",
+      "40",
+      "30"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x9",
+    "input_val": "31",
+    "is_input": "true"
+  },
+  "x14": {
+    "antecedent_id": "x14",
+    "antecedent_name": "River depth",
+    "attribute_weight": "1",
+    "ref_val": [
+      "50",
+      "40",
+      "30"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x10",
+    "input_val": "31",
+    "is_input": "true"
+  },
+  "x15": {
+    "antecedent_id": "x15",
+    "antecedent_name": "River width",
+    "attribute_weight": "1",
+    "ref_val": [
+      "50",
+      "40",
+      "30"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x10",
+    "input_val": "31",
+    "is_input": "true"
+  },
+  "x17": {
+    "antecedent_id": "x17",
+    "antecedent_name": "Slope",
+    "attribute_weight": "1",
+    "ref_val": [
+      "50",
+      "40",
+      "30"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x16",
+    "input_val": "31",
+    "is_input": "true"
+  },
+  "x18": {
+    "antecedent_id": "x18",
+    "antecedent_name": "Siltation",
+    "attribute_weight": "1",
+    "ref_val": [
+      "50",
+      "40",
+      "30"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x16",
+    "input_val": "31",
+    "is_input": "true"
+  },
+  "x25": {
+    "antecedent_id": "x25",
+    "antecedent_name": "Slope",
+    "attribute_weight": "1",
+    "ref_val": [
+      "50",
+      "40",
+      "30"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x11",
+    "input_val": "31",
+    "is_input": "true"
+  },
+  "x26": {
+    "antecedent_id": "x26",
+    "antecedent_name": "Aspect",
+    "attribute_weight": "1",
+    "ref_val": [
+      "50",
+      "40",
+      "30"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x11",
+    "input_val": "31",
+    "is_input": "true"
+  },
+  "x27": {
+    "antecedent_id": "x27",
+    "antecedent_name": "Unplanned infrastructure",
+    "attribute_weight": "1",
+    "ref_val": [
+      "50",
+      "40",
+      "30"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x12",
+    "input_val": "31",
+    "is_input": "true"
+  },
+  "x28": {
+    "antecedent_id": "x28",
+    "antecedent_name": "Embankment failure",
+    "attribute_weight": "1",
+    "ref_val": [
+      "50",
+      "40",
+      "30"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x12",
+    "input_val": "31",
+    "is_input": "true"
+  },
+  "x29": {
+    "antecedent_id": "x29",
+    "antecedent_name": "Deforestation",
+    "attribute_weight": "1",
+    "ref_val": [
+      "50",
+      "40",
+      "30"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x12",
+    "input_val": "31",
+    "is_input": "true"
+  },
+  "x30": {
+    "antecedent_id": "x30",
+    "antecedent_name": "Settlement on the flood prone areas",
+    "attribute_weight": "1",
+    "ref_val": [
+      "50",
+      "40",
+      "30"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x12",
+    "input_val": "31",
+    "is_input": "true"
+  },
+  "x31": {
+    "antecedent_id": "x31",
+    "antecedent_name": "Decrease watershed areas",
+    "attribute_weight": "1",
+    "ref_val": [
+      "50",
+      "40",
+      "30"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x12",
+    "input_val": "31",
+    "is_input": "true"
+  },
+
+  "x8": {
+    "antecedent_id": "x8",
+    "antecedent_name": "Meteorological Factors",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "Severe",
+      "Average",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x7",
+    "input_val": "0",
+    "is_input": "false"
+  },
+  "x16": {
+    "antecedent_id": "x16",
+    "antecedent_name": "Velocity",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "Severe",
+      "Average",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x10",
+    "input_val": "0",
+    "is_input": "false"
+  },
+  "x9": {
+    "antecedent_id": "x9",
+    "antecedent_name": "Geological Factors",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "Severe",
+      "Average",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x7",
+    "input_val": "0",
+    "is_input": "false"
+  },
+  "x10": {
+    "antecedent_id": "x10",
+    "antecedent_name": "River Discharge",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "Severe",
+      "Average",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x7",
+    "input_val": "0",
+    "is_input": "false"
+  },
+  "x11": {
+    "antecedent_id": "x11",
+    "antecedent_name": "Topography",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "Severe",
+      "Average",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x7",
+    "input_val": "0",
+    "is_input": "false"
+  },
+  "x12": {
+    "antecedent_id": "x12",
+    "antecedent_name": "Human activities",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "Severe",
+      "Average",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x7",
+    "input_val": "0",
+    "is_input": "false"
+  },
+  "x7": {
+    "antecedent_id": "x7",
+    "antecedent_name": "Flood water level",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "Severe",
+      "Average",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x7",
+    "input_val": "0.7",
+    "is_input": "false"
+  }
+}
