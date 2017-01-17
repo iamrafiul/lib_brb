@@ -183,6 +183,8 @@ class RuleBase(object):
             )
             current_rule.activation_weight = activation_weight
 
+        return self.rule_row_list
+
 
     '''
     Update rule base
@@ -219,8 +221,10 @@ class RuleBase(object):
                 # print "After: {} {}".format(idx, new_val)
             each.consequence_val = new_val_list
 
-        for each in self.rule_row_list:
-            print "{}".format(each.consequence_val)
+        # for each in self.rule_row_list:
+        #     print "{}".format(each.consequence_val)
+
+        return self.rule_row_list
 
     '''
     Rule aggregation
@@ -290,7 +294,7 @@ class RuleBase(object):
 
         # output = [round(each, 2) for each in aggregated_consequence_val]
         output = [each for each in aggregated_consequence_val]
-        print "Aggregated Rules: ".format(output)
+        # print "Aggregated Rules: ".format(output)
         return output
 
 
@@ -301,13 +305,13 @@ class RuleBase(object):
 #     obj = Data(**data[each])
 #     obj.name = str(each)
 #     # import pdb; pdb.set_trace()
-#     if obj.parent != 'x12':
-#     # if obj.parent != 'x8':
+#     # if obj.parent != 'x12':
+#     if obj.parent != 'x8':
 #         parent = obj
 #     else:
 #         obj_list.append(obj)
 #
-#
+# # import pdb; pdb.set_trace()
 # print "Initial Data:"
 # print "Antecedent ID    Name     Attribute Weight    Reference Titles    Reference Values"
 # for row in obj_list:
@@ -316,25 +320,37 @@ class RuleBase(object):
 # rule_base = RuleBase(obj_list, parent)
 # ref_val_list = rule_base.create_rule_base()
 #
-# # print "\n\n"
-# # print "Rule Base: "
-# # for each in ref_val_list:
-# #     print "{} {} {} {} {} {}".format(each.antecedent_1, each.antecedent_1_ref_title, each.antecedent_2, each.antecedent_2_ref_title, each.rule_weight, each.consequence_val)
+# print "\n\n"
+# print "Rule Base: "
+# for each in ref_val_list:
+#     print each.__dict__
+#     # print "{} {} {} {} {} {}".format(each.antecedent_1, each.antecedent_1_ref_title, each.antecedent_2, each.antecedent_2_ref_title, each.rule_weight, each.consequence_val)
 #
 # print "\n\n"
 # print "Input Transformation: "
 #
-# rule_base.input_transformation()
+# transformed_input = rule_base.input_transformation()
+#
+# for each in transformed_input:
+#     print each
 #
 # print "\n\n"
 # print "Rule base with activation weight"
 #
-# rule_base.activation_weight()
+# modified_rule_base = rule_base.activation_weight()
+#
+# for each in modified_rule_base:
+#     print each.__dict__
 #
 # print "\n\n"
 # print "Belief Update"
-# rule_base.belief_update()
+# updated_rule = rule_base.belief_update()
+#
+# for each in updated_rule:
+#     print "{}".format(each.consequence_val)
 #
 # print "\n\n"
 # print "Aggregated rule:"
-# rule_base.aggregate_rule()
+#
+# output = rule_base.aggregate_rule()
+# print output

@@ -1,4 +1,9 @@
-from flask import Flask, request, flash, redirect, jsonify
+import json
+from collections import OrderedDict
+
+from flask import Flask, jsonify
+from manipulate_data_new import RuleBase
+from data import Data
 
 app = Flask(__name__)
 
@@ -9,234 +14,228 @@ input_transformatiom = list()
     Run tree traversal on a JSON file
 '''
 
-def tree_traversal():
-    import json
+# def tree_traversal():
+#     import json
+#
+#     from manipulate_data_new import RuleBase
+#     from data import Data
+#
+#     # Read data from file
+#     # with open('temp_data.json') as file_data:
+#     # with open('2nd_order_tree.json') as file_data:
+#     with open('single_tree.json') as file_data:
+#         data = json.load(file_data)
+#
+#     obj_list = list()
+#
+#     global create_rule_base, input_transformatiom
+#
+#
+#     # Save each node data as an object in a list
+#     for each in data:
+#         obj = Data(**data[each])
+#         obj.name = str(each)
+#         obj_list.append(obj)
+#
+#     # Sort the obj_list based on is_input is true
+#     obj_list.sort(key=lambda x: x.is_input == "true", reverse=True)
+#     print "Initial nodes: {}".format([str(each.antecedent_id) for each in obj_list])
+#
+#     visited = list()
+#
+#     i = 0
+#
+#     count = 1
+#
+#     subtree = 1
+#
+#     result = list()
+#
+#     rule_list = list()
+#
+#     # While you have an object in obj_list
+#     while len(obj_list):
+#         print "\n\nIteration: {}\n".format(count)
+#         count += 1
+#
+#         # Get parent of the current node.
+#         parent = None
+#         # parent_id =
+#         for each in obj_list:
+#             if each.name == obj_list[i].parent:
+#                 parent = each
+#                 break
+#
+#         visiting = list()
+#
+#         # Find if there is any other node which has the same parent
+#         for j in range(i + 1, len(obj_list)):
+#             if obj_list[i].parent == obj_list[j].parent:
+#                 visiting.append(obj_list[j])
+#         visiting.append(obj_list[i])  # Add the current node in the list
+#
+#         # Check if all the siblings has is_input true or not.
+#         isAllInput = True
+#         for each in visiting:
+#             if each.is_input != 'true':
+#                 isAllInput = False
+#         #
+#         # import pdb; pdb.set_trace()
+#         if len(visiting) == len(obj_list):
+#             # Compute the BRB sub-tree for the nodes in visiting.
+#             print "Computing value of {} for {}".format(parent.antecedent_id,
+#                                                         [str(each.antecedent_id) for each in visiting if
+#                                                          each.antecedent_id != parent.antecedent_id])
+#             # import pdb; pdb.set_trace()
+#             # brb_calculation = RuleBase()
+#             rule_base = RuleBase(visiting, parent)
+#             row_list = rule_base.create_rule_base()
+#
+#             return row_list, parent, visiting
+#
+#             create_rule_base.insert(0, row_list)
+#             create_rule_base.insert(1, parent)
+#             create_rule_base.insert(2, visiting)
+#
+#             # return create_rule_base
+#             # import pdb; pdb.set_trace()
+#             rule_base.input_transformation()
+#             rule_base.activation_weight()
+#             rule_base.belief_update()
+#             consequence_val = rule_base.aggregate_rule()
+#             result.insert(count, consequence_val)
+#             parent.consequence_val = consequence_val
+#
+#             crisp_val = 0.0
+#             for i in range(len(parent.ref_val)):
+#                 crisp_val += float(parent.ref_val[i]) * float(consequence_val[i])
+#
+#             parent.input_val = str(crisp_val)
+#
+#             # import pdb; pdb.set_trace()
+#
+#             print "Calculated consequence values for {} are: {}".format(parent.antecedent_id, consequence_val)
+#
+#             print "\nAll the current nodes have same parent \"{}\" so the tree traversal is done and the ultimate output is: {}".format(
+#                 parent.antecedent_id, parent.antecedent_id)
+#
+#             # return rule_list
+#             break
+#
+#         print "For {}, parent is: {}".format(str(obj_list[i].antecedent_id), parent.antecedent_id)
+#
+#         # if not all the siblings has same parent, continue to the next node of obj_list
+#         if not isAllInput:
+#             i += 1
+#             print "Current Nodes: {}".format([str(each.antecedent_id) for each in visiting])
+#             print "All the children for parent {} is not calculated yet".format(parent)
+#             obj_list.sort(key=lambda x: x.is_input == "true", reverse=True)
+#             continue
+#         else:
+#             # Compute the BRB sub-tree for the nodes in visiting.
+#             print "Computing value of {} for {}".format(parent.antecedent_id,
+#                                                         [str(each.antecedent_id) for each in visiting])
+#             # import pdb; pdb.set_trace()
+#             # brb_calculation = RuleBase()
+#             rule_base = RuleBase(visiting, parent)
+#             rule_base.create_rule_base()
+#             rule_base.input_transformation()
+#             rule_base.activation_weight()
+#             rule_base.belief_update()
+#             consequence_val = rule_base.aggregate_rule()
+#             parent.consequence_val = consequence_val
+#             result.insert(count, consequence_val)
+#
+#             crisp_val = 0.0
+#             for i in range(len(parent.ref_val)):
+#                 crisp_val += float(parent.ref_val[i]) * float(consequence_val[i])
+#
+#             parent.input_val = str(crisp_val)
+#
+#             # import pdb; pdb.set_trace()
+#
+#             print "Calculated consequence values for {} are: {}".format(parent.antecedent_id, consequence_val)
+#
+#             # Remove the visited nodes from obj_list
+#             for each in visiting:
+#                 visited.append(each)
+#             obj_list = [each for each in obj_list if each not in visited]
+#
+#             # Make the current nodes is_input true
+#             current = list()
+#             for each in obj_list:
+#                 if each == parent:
+#                     current = each
+#                     each.is_input = 'true'
+#                     i = 0
+#             print "Remaining nodes for traversal: {}".format([str(each.antecedent_id) for each in obj_list])
+#
+#             print "\nIn iteration {}, {} is calculated and now it's an input node. We've calculated {} subtrees so far.".format(
+#                 count - 1, str(current.antecedent_id), subtree)
+#             subtree += 1
+#             obj_list.sort(key=lambda x: x.is_input == "true", reverse=True)
+#
+#     for each in result:
+#         print each
+#
+#     # return rule_list
 
-    from manipulate_data_new import RuleBase
-    from data import Data
 
-    # Read data from file
-    # with open('temp_data.json') as file_data:
-    # with open('2nd_order_tree.json') as file_data:
-    with open('single_tree.json') as file_data:
-        data = json.load(file_data)
-
-    obj_list = list()
-
-    global create_rule_base, input_transformatiom
-
-
-    # Save each node data as an object in a list
-    for each in data:
-        obj = Data(**data[each])
-        obj.name = str(each)
-        obj_list.append(obj)
-
-    # Sort the obj_list based on is_input is true
-    obj_list.sort(key=lambda x: x.is_input == "true", reverse=True)
-    print "Initial nodes: {}".format([str(each.antecedent_id) for each in obj_list])
-
-    visited = list()
-
-    i = 0
-
-    count = 1
-
-    subtree = 1
-
-    result = list()
-
-    rule_list = list()
-
-    # While you have an object in obj_list
-    while len(obj_list):
-        print "\n\nIteration: {}\n".format(count)
-        count += 1
-
-        # Get parent of the current node.
-        parent = None
-        # parent_id =
-        for each in obj_list:
-            if each.name == obj_list[i].parent:
-                parent = each
-                break
-
-        visiting = list()
-
-        # Find if there is any other node which has the same parent
-        for j in range(i + 1, len(obj_list)):
-            if obj_list[i].parent == obj_list[j].parent:
-                visiting.append(obj_list[j])
-        visiting.append(obj_list[i])  # Add the current node in the list
-
-        # Check if all the siblings has is_input true or not.
-        isAllInput = True
-        for each in visiting:
-            if each.is_input != 'true':
-                isAllInput = False
-        #
-        # import pdb; pdb.set_trace()
-        if len(visiting) == len(obj_list):
-            # Compute the BRB sub-tree for the nodes in visiting.
-            print "Computing value of {} for {}".format(parent.antecedent_id,
-                                                        [str(each.antecedent_id) for each in visiting if
-                                                         each.antecedent_id != parent.antecedent_id])
-            # import pdb; pdb.set_trace()
-            # brb_calculation = RuleBase()
-            rule_base = RuleBase(visiting, parent)
-            row_list = rule_base.create_rule_base()
-
-            return row_list, parent, visiting
-
-            create_rule_base.insert(0, row_list)
-            create_rule_base.insert(1, parent)
-            create_rule_base.insert(2, visiting)
-
-            # return create_rule_base
-            # import pdb; pdb.set_trace()
-            rule_base.input_transformation()
-            rule_base.activation_weight()
-            rule_base.belief_update()
-            consequence_val = rule_base.aggregate_rule()
-            result.insert(count, consequence_val)
-            parent.consequence_val = consequence_val
-
-            crisp_val = 0.0
-            for i in range(len(parent.ref_val)):
-                crisp_val += float(parent.ref_val[i]) * float(consequence_val[i])
-
-            parent.input_val = str(crisp_val)
-
-            # import pdb; pdb.set_trace()
-
-            print "Calculated consequence values for {} are: {}".format(parent.antecedent_id, consequence_val)
-
-            print "\nAll the current nodes have same parent \"{}\" so the tree traversal is done and the ultimate output is: {}".format(
-                parent.antecedent_id, parent.antecedent_id)
-
-            # return rule_list
-            break
-
-        print "For {}, parent is: {}".format(str(obj_list[i].antecedent_id), parent.antecedent_id)
-
-        # if not all the siblings has same parent, continue to the next node of obj_list
-        if not isAllInput:
-            i += 1
-            print "Current Nodes: {}".format([str(each.antecedent_id) for each in visiting])
-            print "All the children for parent {} is not calculated yet".format(parent)
-            obj_list.sort(key=lambda x: x.is_input == "true", reverse=True)
-            continue
-        else:
-            # Compute the BRB sub-tree for the nodes in visiting.
-            print "Computing value of {} for {}".format(parent.antecedent_id,
-                                                        [str(each.antecedent_id) for each in visiting])
-            # import pdb; pdb.set_trace()
-            # brb_calculation = RuleBase()
-            rule_base = RuleBase(visiting, parent)
-            rule_base.create_rule_base()
-            rule_base.input_transformation()
-            rule_base.activation_weight()
-            rule_base.belief_update()
-            consequence_val = rule_base.aggregate_rule()
-            parent.consequence_val = consequence_val
-            result.insert(count, consequence_val)
-
-            crisp_val = 0.0
-            for i in range(len(parent.ref_val)):
-                crisp_val += float(parent.ref_val[i]) * float(consequence_val[i])
-
-            parent.input_val = str(crisp_val)
-
-            # import pdb; pdb.set_trace()
-
-            print "Calculated consequence values for {} are: {}".format(parent.antecedent_id, consequence_val)
-
-            # Remove the visited nodes from obj_list
-            for each in visiting:
-                visited.append(each)
-            obj_list = [each for each in obj_list if each not in visited]
-
-            # Make the current nodes is_input true
-            current = list()
-            for each in obj_list:
-                if each == parent:
-                    current = each
-                    each.is_input = 'true'
-                    i = 0
-            print "Remaining nodes for traversal: {}".format([str(each.antecedent_id) for each in obj_list])
-
-            print "\nIn iteration {}, {} is calculated and now it's an input node. We've calculated {} subtrees so far.".format(
-                count - 1, str(current.antecedent_id), subtree)
-            subtree += 1
-            obj_list.sort(key=lambda x: x.is_input == "true", reverse=True)
-
-    for each in result:
-        print each
-
-    # return rule_list
-
-
-# rules = list()
+rule_base = ""
 
 @app.route('/api/v1/initiate_brb/')
 def initiate_brb():
-    # global rules
-    # rules, parent, visiting = tree_traversal()
-    # import pdb; pdb.set_trace()
-    return 'Initiated BRB algorithm'
+    global rule_base
 
-@app.route('/api/v1/get_rule_base/')
-def get_rule_base():
-    rules, parent, visiting = tree_traversal()
-    # tree_traversal()
-    # rules = tree_traversal()
-    visiting = [each for each in visiting if each.antecedent_id != parent.antecedent_id]
-    # print [each.antecedent_id for each in visiting]
-    # for each in visiting:
-    #     print  each.antecedent_id
+    try:
+        with open('single_tree.json') as file_data:
+            data = json.load(file_data, object_pairs_hook=OrderedDict)
 
-    rule_row = [[]]
-    count = 0
+        obj_list = list()
+        parent = ""
 
-    for row in rules:
-        row_data = list()
-        row_data.append(row.rule_weight)
+        for each in data:
+            obj = Data(**data[each])
+            obj.name = str(each)
+            if obj.parent != 'x8':
+                parent = obj
+            else:
+                obj_list.append(obj)
 
-        # if row.combinations[0] == 0:
-        idx = 0
-        for each in row.combinations[1:]:
-            row_data.append(visiting[idx].antecedent_id)
-            row_data.append(visiting[idx].ref_title[each])
-            idx += 1
-        row_data.append(parent.antecedent_id)
-        for each in row.consequence_val:
-            row_data.append(each)
-        row_data.append(row.matching_degree)
-        row_data.append(row.activation_weight)
-        # print row.rule_weight, visiting[idx].antecedent_id, visiting[idx].ref_title[each]
+        rule_base = RuleBase(obj_list, parent)
+        return 'Initiated BRB algorithm'
 
-        rule_row.insert(count, row_data)
-        count += 1
+    except:
+        return 'Error in initiating BRB algorithm'
+
+@app.route('/api/v1/get_initial_rule_base/')
+def get_initial_rule_base():
+    ref_val_list = rule_base.create_rule_base()
+    return jsonify([each.__dict__ for each in ref_val_list ])
 
 
+@app.route('/api/v1/get_transformed_input/')
+def get_transformed_input():
+    transformed_input = rule_base.input_transformation()
+    return jsonify([each for each in transformed_input])
 
-            # print [each for each in visiting[idx-1].ref_title[row.combinations[idx]]
-            # print visiting[idx-1].consequent_values[idx]
-            # node = visiting[idx]
-            # print node.ref_val[each]
-            # for node in visiting:
-            #     print node.consequent_values[each]
-            # print row.[each].antecedent_id
 
-        # print row.consequence_val
-        # for key, val in row.iteritems():
-        #     print key, val
-        # for each in row:
-        #     print each
-    # print "Total: {}".format(count)
-    for each in rule_row:
-        print each
-    return jsonify([each for each in rule_row])
+@app.route('/api/v1/get_modified_rule_base/')
+def get_modified_rule_base():
+    modified_rule_base = rule_base.activation_weight()
+    return jsonify([each.__dict__ for each in modified_rule_base])
+
+
+@app.route('/api/v1/get_belief_update/')
+def get_belief_update():
+    updated_rule = rule_base.belief_update()
+    return jsonify([each.__dict__ for each in updated_rule])
+
+
+@app.route('/api/v1/get_aggregated_rule/')
+def get_aggregated_rule():
+    aggregated_rule = rule_base.aggregate_rule()
+    return jsonify(aggregated_rule)
 
 
 
