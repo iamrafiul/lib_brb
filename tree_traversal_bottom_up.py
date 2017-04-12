@@ -1,12 +1,21 @@
+# @Author: mdrhri-6
+# @Date:   2016-12-22T03:30:09+01:00
+# @Last modified by:   mdrhri-6
+# @Last modified time: 2017-02-13T15:08:06+01:00
+
+
+
 import json
 
 from manipulate_data_new import RuleBase
 from data import Data
 
 # Read data from file
-# with open('temp_data.json') as file_data:
+with open('temp_data.json') as file_data:
 # with open('2nd_order_tree.json') as file_data:
-with open('api/single_tree.json') as file_data:
+#with open('api/single_tree.json') as file_data:
+# with open('sunonda_tree.json') as file_data:
+# with open('agriculture_tree.json') as file_data:
     data = json.load(file_data)
 
 obj_list = list()
@@ -81,12 +90,15 @@ while len(obj_list):
 
         # import pdb; pdb.set_trace()
 
-        print "Calculated consequence values for {} are: {}".format(parent.antecedent_id, consequence_val)
-
         print "Rule Row List: {}".format([each.__dict__ for each in row_list])
 
 
         print "\nAll the current nodes have same parent \"{}\" so the tree traversal is done and the ultimate output is: {}".format(parent.antecedent_id, parent.antecedent_id)
+
+        print "Calculated consequence values for {} are: {}".format(parent.antecedent_id, consequence_val)
+
+        print "Crisp Value: {}".format(str(crisp_val))
+
         break
 
     print "For {}, parent is: {}".format(str(obj_list[i].antecedent_id), parent.antecedent_id)
@@ -144,5 +156,5 @@ while len(obj_list):
         obj_list.sort(key=lambda x: x.is_input == "true", reverse=True)
 
 
-for each in result:
-    print each
+# for each in result:
+#     print each

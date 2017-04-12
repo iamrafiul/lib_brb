@@ -1,8 +1,17 @@
+# @Author: mdrhri-6
+# @Date:   2017-01-17T20:51:23+01:00
+# @Last modified by:   mdrhri-6
+# @Last modified time: 2017-03-23T10:19:17+01:00
+
+
+import hashlib
+import time
 import json
 from collections import OrderedDict
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from manipulate_data_new import RuleBase
+from tree_traversal_bottom_up import TreeTraversalBottomUp
 from data import Data
 
 app = Flask(__name__)
@@ -180,63 +189,149 @@ input_transformatiom = list()
 #
 #     # return rule_list
 
+def create_hash():
+    hash = hashlib.sha1()
+    hash.update(str(time.time()))
+    return hash.hexdigest()
 
 rule_base = ""
 
-@app.route('/api/v1/initiate_brb/')
+@app.route('/')
+def home():
+    return jsonify('Welcome')
+
+@app.route('/api/v1/initiate_brb/', methods=['GET', 'POST'])
 def initiate_brb():
-    global rule_base
+    response_dict = dict()
 
-    try:
-        with open('single_tree.json') as file_data:
-            data = json.load(file_data, object_pairs_hook=OrderedDict)
+    if request.method == 'GET':
+        response_dict['response'] = 200
+        response_dict['access_key'] = ''
+        response_dict['message'] = 'No data found. Please send a POST request with JSON data.'
+        return jsonify(response_dict)
 
-        obj_list = list()
-        parent = ""
+    if request.method == 'POST':
+        data = request.get_json()
+        print data
 
-        for each in data:
-            obj = Data(**data[each])
-            obj.name = str(each)
-            if obj.parent != 'x8':
-                parent = obj
-            else:
+        access_key = create_hash()
+        file_name = '' + str(access_key) + '.json'
+
+        write_file = open(file_name, 'w')
+        json.dump(data, write_file)
+        write_file.close()
+        # import pdb; pdb.set_trace()
+        global rule_base
+
+        try:
+            with open(file_name) as file_data:
+                data = json.load(file_data, object_pairs_hook=OrderedDict)
+
+            obj_list = list()
+            parent = ""
+
+            for each in data:
+                obj = Data(**data[each])
+                obj.name = str(each)
+                # if obj.parent != 'x8':
+                #     parent = obj
+                # else:
                 obj_list.append(obj)
 
-        rule_base = RuleBase(obj_list, parent)
-        return 'Initiated BRB algorithm'
 
-    except:
-        return 'Error in initiating BRB algorithm'
-
-@app.route('/api/v1/get_initial_rule_base/')
-def get_initial_rule_base():
-    ref_val_list = rule_base.create_rule_base()
-    return jsonify([each.__dict__ for each in ref_val_list ])
+            tree_traversal = TreeTraversalBottomUp()
+            # import pdb; pdb.set_trace()
+            # consequence_val, crisp_val = tree_traversal.traverse_tree(obj_list)
+            initial_rule_base, transformed_input, activation_weight, belief_update, consequence_val, crisp_val = tree_traversal.traverse_tree(obj_list)
 
 
-@app.route('/api/v1/get_transformed_input/')
-def get_transformed_input():
-    transformed_input = rule_base.input_transformation()
-    return jsonify([each for each in transformed_input])
+            # import pdb; pdb.set_trace()
+            result_dict  = dict()
+            result_dict["initial_rule_base"] = initial_rule_base
+            result_dict["transformed_input"] = transformed_input
+            result_dict["activation_weight"] = activation_weight
+            result_dict["belief_update"] = belief_update
+            result_dict["consequence_val"] = consequence_val
+            result_dict["crisp_val"] = crisp_val
+
+            # import pdb; pdb.set_trace()
+
+            with open('result/' + file_name, 'w') as fp:
+                json.dump(result_dict, fp)
+
+            fp.close()
+
+            # rule_base = RuleBase(obj_list, parent)
+            response_dict['response'] = 200
+            response_dict['access_key'] = access_key
+            response_dict['message'] = 'Initiated BRB algorithm'
+            return jsonify(response_dict)
+
+        except:
+            response_dict['response'] = 400
+            response_dict['access_key'] = ''
+            response_dict['message'] = 'Error initiating BRB algorithm'
+            return jsonify(response_dict)
+
+@app.route('/api/v1/<access_key>/get_initial_rule_base/')
+def get_initial_rule_base(access_key=None):
+    if access_key is not None:
+        file_path = 'result/' + access_key + '.json'
+        with open(file_path) as data_file:
+            data = json.load(data_file)
+        data_file.close()
+        return jsonify(data['initial_rule_base'])
+    else:
+        return jsonify({'message': 'This is not a valid URL, no access key found.', 'response': '400'})
 
 
-@app.route('/api/v1/get_modified_rule_base/')
-def get_modified_rule_base():
-    modified_rule_base = rule_base.activation_weight()
-    return jsonify([each.__dict__ for each in modified_rule_base])
+@app.route('/api/v1/<access_key>/get_transformed_input/')
+def get_transformed_input(access_key=None):
+    if access_key is not None:
+        file_path = 'result/' + access_key + '.json'
+        with open(file_path) as data_file:
+            data = json.load(data_file)
+        data_file.close()
+        return jsonify(data['transformed_input'])
+    else:
+        return jsonify({'message': 'This is not a valid URL, no access key found.', 'response': '400'})
+
+@app.route('/api/v1/<access_key>/get_modified_rule_base/')
+def get_modified_rule_base(access_key=None):
+    if access_key is not None:
+        file_path = 'result/' + access_key + '.json'
+        with open(file_path) as data_file:
+            data = json.load(data_file)
+        data_file.close()
+        return jsonify(data['activation_weight'])
+    else:
+        return jsonify({'message': 'This is not a valid URL, no access key found.', 'response': '400'})
 
 
-@app.route('/api/v1/get_belief_update/')
-def get_belief_update():
-    updated_rule = rule_base.belief_update()
-    return jsonify([each.__dict__ for each in updated_rule])
+@app.route('/api/v1/<access_key>/get_belief_update/')
+def get_belief_update(access_key=None):
+    if access_key is not None:
+        file_path = 'result/' + access_key + '.json'
+        with open(file_path) as data_file:
+            data = json.load(data_file)
+        data_file.close()
+        return jsonify(data['belief_update'])
+    else:
+        return jsonify({'message': 'This is not a valid URL, no access key found.', 'response': '400'})
 
 
-@app.route('/api/v1/get_aggregated_rule/')
-def get_aggregated_rule():
-    aggregated_rule = rule_base.aggregate_rule()
-    return jsonify(aggregated_rule)
+@app.route('/api/v1/<access_key>/get_aggregated_rule/')
+def get_aggregated_rule(access_key=None):
+    if access_key is not None:
+        file_path = 'result/' + access_key + '.json'
+        with open(file_path) as data_file:
+            data = json.load(data_file)
+        data_file.close()
+        return jsonify(data['consequence_val'], data['crisp_val'])
+    else:
+        return jsonify({'message': 'This is not a valid URL, no access key found.', 'response': '400'})
 
 
 
-app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)

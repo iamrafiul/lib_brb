@@ -1,0 +1,377 @@
+{
+  "x1": {
+    "antecedent_id": "x1",
+    "antecedent_name": "Area",
+    "attribute_weight": "1",
+    "ref_val": [
+      "20",
+      "10",
+      "5"
+    ],
+    "ref_title": [
+      "Big",
+      "Medium",
+      "Small"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x17",
+    "input_val": "16",
+    "is_input": "true"
+  },
+  "x3": {
+    "antecedent_id": "x3",
+    "antecedent_name": "Flood water level",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "Severe",
+      "Average",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x17",
+    "input_val": "0.7",
+    "is_input": "true"
+  },
+  "x8": {
+    "antecedent_id": "x8",
+    "antecedent_name": "Availability of cultivable land",
+    "attribute_weight": "1",
+    "ref_val": [
+      "50",
+      "40",
+      "30"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x17",
+    "input_val": "33",
+    "is_input": "true"
+  },
+  "x11": {
+    "antecedent_id": "x11",
+    "antecedent_name": "Repairment Cost",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x17",
+    "input_val": "0.7",
+    "is_input": "true"
+  },
+  "x14": {
+    "antecedent_id": "x14",
+    "antecedent_name": "Financial Condition",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x17",
+    "input_val": "0.6",
+    "is_input": "true"
+  },
+  "x10": {
+    "antecedent_id": "x10",
+    "antecedent_name": "Supply of Food",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x17",
+    "input_val": "0.4",
+    "is_input": "true"
+  },
+  "x15": {
+    "antecedent_id": "x15",
+    "antecedent_name": "Transport",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x17",
+    "input_val": "31",
+    "is_input": "false"
+  },
+  "x12": {
+    "antecedent_id": "x12",
+    "antecedent_name": "Availability of transport",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x15",
+    "input_val": "0.4",
+    "is_input": "true"
+  },
+  "x13": {
+    "antecedent_id": "x13",
+    "antecedent_name": "Cost of Transport",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x15",
+    "input_val": "0.8",
+    "is_input": "true"
+  },
+  "x16": {
+    "antecedent_id": "x16",
+    "antecedent_name": "Crop",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x11",
+    "input_val": "31",
+    "is_input": "false"
+  },
+  "x2": {
+    "antecedent_id": "x2",
+    "antecedent_name": "Amount of Crops",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x16",
+    "input_val": "31",
+    "is_input": "true"
+  },
+  "x4": {
+    "antecedent_id": "x4",
+    "antecedent_name": "Fertility",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x16",
+    "input_val": "0.8",
+    "is_input": "true"
+  },
+  "x5": {
+    "antecedent_id": "x5",
+    "antecedent_name": "Availability of Labor",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x16",
+    "input_val": "0.3",
+    "is_input": "true"
+  },
+  "x6": {
+    "antecedent_id": "x6",
+    "antecedent_name": "Cost of Raw Materials",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x16",
+    "input_val": "0.65",
+    "is_input": "true"
+  },
+  "x7": {
+    "antecedent_id": "x7",
+    "antecedent_name": "Availability of drinkable water",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x17",
+    "input_val": "0.78",
+    "is_input": "true"
+  },
+  "x9": {
+    "antecedent_id": "x9",
+    "antecedent_name": "Agricultural wages",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x16",
+    "input_val": "0.6",
+    "is_input": "true"
+  },
+  "x17": {
+    "antecedent_id": "x17",
+    "antecedent_name": "Agriculture",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x17",
+    "input_val": "0.6",
+    "is_input": "false"
+  }
+
+}

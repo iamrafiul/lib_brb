@@ -1,0 +1,332 @@
+{
+  "x27": {
+    "antecedent_id": "x27",
+    "antecedent_name": "Reaction temperature",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x22",
+    "input_val": "31",
+    "is_input": "true"
+  },
+  "x26": {
+    "antecedent_id": "x26",
+    "antecedent_name": "Heat content",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x22",
+    "input_val": "31",
+    "is_input": "true"
+  },
+  "x25": {
+    "antecedent_id": "x25",
+    "antecedent_name": "Municipal fire brigade",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x22",
+    "input_val": "31",
+    "is_input": "true"
+  },
+  "x24": {
+    "antecedent_id": "x24",
+    "antecedent_name": "Automatic fire alarms",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x22",
+    "input_val": "31",
+    "is_input": "true"
+  },
+  "x23": {
+    "antecedent_id": "x23",
+    "antecedent_name": "Flammable waste disposal",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x22",
+    "input_val": "31",
+    "is_input": "true"
+  },
+  "x22": {
+    "antecedent_id": "x22",
+    "antecedent_name": "Emergency supplies",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x9",
+    "input_val": "31",
+    "is_input": "false"
+  },
+  "x21": {
+    "antecedent_id": "x21",
+    "antecedent_name": "Fire safety",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x9",
+    "input_val": "31",
+    "is_input": "true"
+  },
+  "x20": {
+    "antecedent_id": "x20",
+    "antecedent_name": "Ventilation",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x9",
+    "input_val": "31",
+    "is_input": "true"
+  },
+  "x19": {
+    "antecedent_id": "x19",
+    "antecedent_name": "First aid distinguisher",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x9",
+    "input_val": "31",
+    "is_input": "true"
+  },
+  "x17": {
+    "antecedent_id": "x17",
+    "antecedent_name": "Worker movement using computer vision",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x10",
+    "input_val": "31",
+    "is_input": "true"
+  },
+  "x16": {
+    "antecedent_id": "x16",
+    "antecedent_name": "Personal training in safety",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x10",
+    "input_val": "31",
+    "is_input": "true"
+  },
+  "x15": {
+    "antecedent_id": "x15",
+    "antecedent_name": "Training of first aid fire fighters",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x10",
+    "input_val": "31",
+    "is_input": "true"
+  },
+  "x10": {
+    "antecedent_id": "x10",
+    "antecedent_name": "Working Safety",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x9",
+    "input_val": "31",
+    "is_input": "false"
+  },
+  "x9": {
+    "antecedent_id": "x9",
+    "antecedent_name": "Environmental Safety",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x8",
+    "input_val": "31",
+    "is_input": "false"
+  },
+  "x8": {
+    "antecedent_id": "x8",
+    "antecedent_name": "Overall Safety of RMG",
+    "attribute_weight": "1",
+    "ref_val": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "ref_title": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "consequent_values": [
+      "[]"
+    ],
+    "crisp_val": "",
+    "parent": "x7",
+    "input_val": "31",
+    "is_input": "false"
+  },
+}

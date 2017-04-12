@@ -111,8 +111,18 @@ class RuleBase(object):
         #     print each.__dict__
 
         data = self.rule_row_list
+
+
+        # for each in self.rule_row_list:
+        #     print each.__dict__
+
+        # res = [each.__dict__ for each in data ]
         # import pdb; pdb.set_trace()
-        return data
+        # print res
+
+        # return  [each.__dict__ for each in data ]
+        return  [each.__dict__ for each in data]
+
 
 
     '''
@@ -158,6 +168,7 @@ class RuleBase(object):
     '''
 
     def activation_weight(self):
+        activation_weights = list()
         matching_degree = list()
 
         for i, row in enumerate(self.combinations):
@@ -182,8 +193,9 @@ class RuleBase(object):
                 sum
             )
             current_rule.activation_weight = activation_weight
+            activation_weights.append(activation_weight)
 
-        return self.rule_row_list
+        return activation_weights
 
 
     '''
@@ -224,7 +236,7 @@ class RuleBase(object):
         # for each in self.rule_row_list:
         #     print "{}".format(each.consequence_val)
 
-        return self.rule_row_list
+        return [each.consequence_val for each in self.rule_row_list]
 
     '''
     Rule aggregation
